@@ -1,0 +1,29 @@
+{
+  "extensions": {
+    "recommendations": ["esbenp.prettier-vscode"]
+  },
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "prettier.singleQuote": true,
+    "prettier.tabWidth": 2,
+    "prettier.printWidth": 80,
+    "prettier.jsxSingleQuote": true,
+    "debug.javascript.terminalOptions": {
+      "skipFiles": ["<node_internals>/**"]
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "css.lint.unknownAtRules": "ignore",
+    "typescript.tsdk": "./node_modules/typescript/lib"
+  }
+}
