@@ -301,7 +301,8 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async ({ req }) => {
   const { session } = req as any;
 
-  // fetch the gl firm token for the current authenticated user
+  // grab the Gravity Legal Firm Token
+  // from the current authenticated user
   const firmToken = session.user!.firm.glApiToken as string;
 
   // start a payment session

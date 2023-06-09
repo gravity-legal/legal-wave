@@ -1,5 +1,6 @@
-import { userSignup } from '@/b-logic/userSignup';
+import { userSignup } from '@/business-logic/userSignup';
 import { User } from '@prisma/client';
+import Cookies from 'cookies';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -8,14 +9,14 @@ export default async function handler(
 ) {
   const { body } = req;
 
-  const params = {
+  const user = await userSignup({
     email: body.email,
     firmName: body.firmName,
     password: body.password,
-    req,
-    res,
-  };
+  });
 
-  const user = await userSignup(params);
+  const cookies = new Cookies(req, res);
+  cookies.set('wave:userId', user.id);
+
   res.status(200).json(user);
 }

@@ -1,15 +1,11 @@
 import { prisma } from '@/conn/prisma';
-import gl from '@/gravity-legal';
+import legal from '@/gravity-legal';
 import { User } from '@prisma/client';
-import Cookies from 'cookies';
-import { IncomingMessage, ServerResponse } from 'http';
 
 export interface UserSignupParams {
   email: string;
   firmName: string;
   password: string;
-  req: IncomingMessage;
-  res: ServerResponse;
 }
 
 export async function userSignup(params: UserSignupParams): Promise<User> {
@@ -27,7 +23,7 @@ export async function userSignup(params: UserSignupParams): Promise<User> {
 
   // now we need to create a firm
   // in Gravity Legal
-  const apiToken = await gl.createFirm(params.firmName);
+  const firmApiToken = await legal.createFirm(params.firmName);
 
   // update our firm with the apiToken
   await prisma.firm.update({
@@ -35,13 +31,9 @@ export async function userSignup(params: UserSignupParams): Promise<User> {
       id: user.firmId,
     },
     data: {
-      glApiToken: apiToken,
+      glApiToken: firmApiToken,
     },
   });
-
-  const { req, res } = params;
-  const cookies = new Cookies(req, res);
-  cookies.set('wave:userId', user.id);
 
   return user;
 }

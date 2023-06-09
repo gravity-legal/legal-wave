@@ -1,4 +1,5 @@
-import { userLogin } from '@/b-logic/userLogin';
+import { userLogin } from '@/business-logic/userLogin';
+import Cookies from 'cookies';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -7,15 +8,15 @@ export default async function handler(
 ) {
   const { body } = req;
 
-  const params = {
-    req,
-    res,
-    email: body.email,
-    password: body.password,
-  };
-
   try {
-    await userLogin(params);
+    const user = await userLogin({
+      email: body.email,
+      password: body.password,
+    });
+
+    const cookies = new Cookies(req, res);
+    cookies.set('wave:userId', user.id);
+
     res.send(200);
   } catch (e) {
     res.send(403);

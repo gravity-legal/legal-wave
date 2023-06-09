@@ -14,7 +14,7 @@ export interface CreateFirmInput {
   name: string;
 }
 
-export interface RunPaymentData {
+export interface CreateFirmData {
   createFirm: {
     apiToken: string;
   };
@@ -36,6 +36,6 @@ export async function createFirm(name: string): Promise<string> {
     },
   };
 
-  const result = await client.request<RunPaymentData>(CREATE_FIRM, variables);
+  const result = await client.request<CreateFirmData>(CREATE_FIRM, variables);
   return result.createFirm.apiToken;
 }
