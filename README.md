@@ -2,23 +2,24 @@
 
 # Legal Wave
 
-Legal Wave is an example application to showcase what can be done with the Gravity Legal payments platform. It is written in Typescript using [Next.js](https://nextjs.org/) a react framework. We also use [Chakra UI](https://chakra-ui.com/) to speed up build the UI.
+Legal Wave is an example application to showcase what can be done with the Gravity Legal payments platform. It is written in Typescript using [Next.js](https://nextjs.org/), a React framework. We also use [Chakra UI](https://chakra-ui.com/) to speed up building the UI.
 
 ## Getting Started
 
-You will need a Partner API Token to run this example. You can create a token through our Partner portal at [app.sandbox.gravity-legal.com](https://app.sandbox.gravity-legal.com).
+You will need a Partner account in our sandbox environment to run Legal Wave locally. If you need an account, shoot us an email at support@gravity-legal.com
 
 1. Login at [app.sandbox.gravity-legal.com](https://app.sandbox.gravity-legal.com)
 2. Go to Settings and create an api token
 3. Rename `.env.template` to `.env.local`
-4. Place you token in the new env file
+4. Paste your token into `.env.local`
 
 ```
 GL_PARTNER_TOKEN=p_secret_xxxxxxxxxxxxx
 ```
 
-5. run `npm install`
-6. run `npm run dev`
+5. Run `npm install` to install dependencies
+6. Run `npm run dev`
+7. Visit [http://localhost:5005](http://localhost:5005)
 
 ### Database
 
