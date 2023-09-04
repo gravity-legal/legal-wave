@@ -1,4 +1,5 @@
-import { chakra, HTMLChakraProps } from '@chakra-ui/react';
+import { chakra, HTMLChakraProps, Image } from '@chakra-ui/react';
+import { FC } from 'react';
 
 export const Logo = (props: HTMLChakraProps<'svg'>) => (
   <chakra.svg
@@ -17,3 +18,15 @@ export const Logo = (props: HTMLChakraProps<'svg'>) => (
     />
   </chakra.svg>
 );
+
+export const Logo2: FC = (props) => {
+  return (
+    <Image
+      height='12'
+      width='auto'
+      src='/legal-wave-logo.png'
+      alt='Logo'
+      {...props}
+    />
+  );
+};

@@ -1,9 +1,10 @@
-import { Logo } from '@/frontend/components/Logo';
-import { PasswordField } from '@/frontend/components/PasswordField';
+import { PasswordField } from '@/components/auth/PasswordField';
+import { Logo } from '@/components/layout/Logo';
 import {
   Box,
   Button,
   Container,
+  Flex,
   FormControl,
   FormLabel,
   Heading,
@@ -17,7 +18,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 interface FormData {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -46,7 +47,9 @@ export const LoginPage: NextPage = () => {
       <form onSubmit={submitHandler}>
         <Stack spacing='8'>
           <Stack spacing='6'>
-            <Logo />
+            <Flex justifyContent='center'>
+              <Logo />
+            </Flex>
             <Stack spacing={{ base: '2', md: '3' }} textAlign='center'>
               <Heading size={{ base: 'xs', md: 'sm' }}>
                 Login to your Legal Wave account
@@ -71,8 +74,8 @@ export const LoginPage: NextPage = () => {
             <Stack spacing='6'>
               <Stack spacing='5'>
                 <FormControl>
-                  <FormLabel htmlFor='email'>Email</FormLabel>
-                  <Input id='email' type='email' {...register('email')} />
+                  <FormLabel htmlFor='username'>Username</FormLabel>
+                  <Input id='username' type='text' {...register('username')} />
                 </FormControl>
                 <PasswordField {...register('password')} />
               </Stack>

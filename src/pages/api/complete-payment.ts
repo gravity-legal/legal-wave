@@ -1,5 +1,5 @@
 import { runPayment } from '@/business-logic';
-import { Payment, RunPaymentInput } from '@/gravity-legal';
+import { Payment, RunPaymentInput } from '@/gravity-legal-requests';
 import { Session } from '@/server';
 import type { NextApiRequest, NextApiResponse } from 'next';
 

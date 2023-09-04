@@ -1,13 +1,14 @@
-import { startPaymentSession } from '@/gravity-legal/startPaymentSession';
+import { Layout } from '@/components/layout/Layout';
+import { startPaymentSession } from '@/gravity-legal-requests/startPaymentSession';
 import {
   GetServerSideProps,
   InferGetServerSidePropsType,
   NextPage,
 } from 'next';
 
-import { CreditCardBrandIcon } from '@/frontend/components/credit-cards/CreditCardBrandIcon';
-import HostedFieldInput from '@/frontend/components/HostedFieldInput';
-import { useGravityLegal } from '@/frontend/hooks/useGravityLegal';
+import { CreditCardBrandIcon } from '@/components/credit-cards/CreditCardBrandIcon';
+import { useGravityLegal } from '@/components/hooks/useGravityLegal';
+import HostedFieldInput from '@/components/HostedFieldInput';
 import {
   Alert,
   AlertIcon,
@@ -24,6 +25,10 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightElement,
+  List,
+  ListIcon,
+  ListItem,
+  SimpleGrid,
   Spinner,
   Stack,
   Tab,
@@ -31,11 +36,13 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Text,
 } from '@chakra-ui/react';
 import currency from 'currency.js';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { MdCheckCircle } from 'react-icons/md';
 
 interface FormData {
   amount: string;
@@ -47,9 +54,51 @@ interface PaymentResult {
   status: 'success' | 'partial_success' | 'failure';
 }
 
-export const CollectMoneyPage: NextPage<
+export const PaymentIntentPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ paymentToken }) => {
+  return (
+    <Layout>
+      <Container py={{ base: '16', md: '24' }}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={12}>
+          <Stack spacing={{ base: '4', md: '6' }}>
+            <Stack spacing='4'>
+              <Heading as='h1' size={{ base: 'md', md: 'lg' }}>
+                Payment Intents
+              </Heading>
+            </Stack>
+            <Text textStyle={{ base: 'lg', md: 'xl' }} color='fg.muted'>
+              Payment Intents are the simplest way to collect money. Make a
+              payment using the form.
+            </Text>
+            <List spacing={3}>
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Create a payment session from your server
+              </ListItem>
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Initialize the Hosted Fields SDK
+              </ListItem>
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Pass the returned payment token to your server and finish the
+                payment.
+              </ListItem>
+            </List>
+          </Stack>
+          <PaymentForm paymentToken={paymentToken} />
+        </SimpleGrid>
+      </Container>
+    </Layout>
+  );
+};
+
+export interface PaymentFormProps {
+  paymentToken: string;
+}
+
+const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<FormData>();
   const [loading, setLoading] = useState(false);
@@ -104,14 +153,23 @@ export const CollectMoneyPage: NextPage<
       console.log('invlaid', data);
     }
   );
+  return (
+    <Stack spacing={{ base: '8', lg: '6' }} height='full'>
+      {hostedFieldsState?.loadError && (
+        <Alert status='error' variant='solid'>
+          <AlertIcon />
+          <span>{hostedFieldsState.loadError.message}</span>
+        </Alert>
+      )}
 
-  if (result) {
-    return (
-      <Container
-        maxW='lg'
-        py={{ base: '12', md: '24' }}
-        px={{ base: '0', sm: '8' }}
-      >
+      {error && (
+        <Alert status='error' variant='solid'>
+          <AlertIcon />
+          <span>{error}</span>
+        </Alert>
+      )}
+
+      {result && (
         <Box
           py={{ base: '0', sm: '8' }}
           px={{ base: '4', sm: '10' }}
@@ -119,6 +177,7 @@ export const CollectMoneyPage: NextPage<
           boxShadow={{ base: 'none', sm: 'md' }}
           borderRadius={{ base: 'none', sm: 'xl' }}
           position='relative'
+          width='lg'
         >
           <Stack spacing='6' textAlign='center'>
             <Heading>Success!</Heading>
@@ -127,35 +186,9 @@ export const CollectMoneyPage: NextPage<
             </Button>
           </Stack>
         </Box>
-      </Container>
-    );
-  }
+      )}
 
-  return (
-    <Container
-      maxW='lg'
-      py={{ base: '12', md: '24' }}
-      px={{ base: '0', sm: '8' }}
-    >
-      <Stack spacing='8'>
-        {hostedFieldsState?.loadError && (
-          <Alert status='error' variant='solid'>
-            <AlertIcon />
-            <span>{hostedFieldsState.loadError.message}</span>
-          </Alert>
-        )}
-
-        {error && (
-          <Alert status='error' variant='solid'>
-            <AlertIcon />
-            <span>{error}</span>
-          </Alert>
-        )}
-
-        <Stack spacing={{ base: '2', md: '3' }} textAlign='center'>
-          <Heading>It's time you got paid</Heading>
-        </Stack>
-
+      {!result && (
         <Box
           py={{ base: '0', sm: '8' }}
           px={{ base: '4', sm: '10' }}
@@ -163,6 +196,7 @@ export const CollectMoneyPage: NextPage<
           boxShadow={{ base: 'none', sm: 'md' }}
           borderRadius={{ base: 'none', sm: 'xl' }}
           position='relative'
+          width='lg'
         >
           <form onSubmit={submitHandler}>
             <Stack spacing='6'>
@@ -171,24 +205,24 @@ export const CollectMoneyPage: NextPage<
                 <InputGroup>
                   <InputLeftAddon children='USD' />
                   {/* <Input
-                    as={MaskedInput}
-                    id='amount'
-                    mask={createNumberMask({
-                      prefix: '$',
-                      suffix: '',
-                      includeThousandsSeparator: true,
-                      thousandsSeparatorSymbol: ',',
-                      allowDecimal: true,
-                      decimalSymbol: '.',
-                      decimalLimit: 2,
-                      integerLimit: 6,
-                      allowNegative: false,
-                      allowLeadingZeroes: false,
-                    })}
-                    type='text'
-                    placeholder='$10.00'
-                    {...register('amount', { required: true })}
-                  /> */}
+                as={MaskedInput}
+                id='amount'
+                mask={createNumberMask({
+                  prefix: '$',
+                  suffix: '',
+                  includeThousandsSeparator: true,
+                  thousandsSeparatorSymbol: ',',
+                  allowDecimal: true,
+                  decimalSymbol: '.',
+                  decimalLimit: 2,
+                  integerLimit: 6,
+                  allowNegative: false,
+                  allowLeadingZeroes: false,
+                })}
+                type='text'
+                placeholder='$10.00'
+                {...register('amount', { required: true })}
+              /> */}
                   <Input
                     id='amount'
                     type='text'
@@ -291,8 +325,8 @@ export const CollectMoneyPage: NextPage<
             </div>
           )}
         </Box>
-      </Stack>
-    </Container>
+      )}
+    </Stack>
   );
 };
 
@@ -315,4 +349,4 @@ export const getServerSideProps: GetServerSideProps<{
   };
 };
 
-export default CollectMoneyPage;
+export default PaymentIntentPage;

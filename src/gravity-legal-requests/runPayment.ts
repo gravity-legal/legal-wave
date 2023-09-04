@@ -1,4 +1,4 @@
-import { gqlEndpoint } from '@/gravity-legal';
+import { gqlEndpoint } from '@/gravity-legal-requests';
 import { GraphQLClient, gql } from 'graphql-request';
 
 const RUN_PAYMENT = gql`

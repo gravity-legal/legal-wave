@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormHelperText,
   FormLabel,
   IconButton,
   Input,
@@ -47,6 +48,9 @@ export const PasswordField = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
         </InputGroup>
+        <FormHelperText fontSize='xs'>
+          Doesn't even need to be secure.
+        </FormHelperText>
       </FormControl>
     );
   }

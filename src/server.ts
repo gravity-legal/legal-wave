@@ -2,9 +2,9 @@ import { Prisma } from '@prisma/client';
 import Cookies from 'cookies';
 import express, { Express, NextFunction, Request, Response } from 'express';
 import http, { IncomingMessage } from 'http';
-import next from 'next';
+import next, { NextApiRequest } from 'next';
 import Route from 'route-parser';
-import { prisma } from './conn/prisma';
+import { prisma } from './lib/prisma';
 
 export interface CreateServerResult {
   app: Express;
@@ -12,6 +12,10 @@ export interface CreateServerResult {
 }
 
 export interface RequestWithSession extends IncomingMessage {
+  session: Session;
+}
+
+export interface NextApiRequestWithSession extends NextApiRequest {
   session: Session;
 }
 
@@ -53,7 +57,7 @@ export async function createServer(): Promise<CreateServerResult> {
       !(req as any).session.user &&
       !matchesSome(req.path, ['/login', '/signup', '/logout'])
     ) {
-      res.redirect('/login');
+      res.redirect('/signup');
       return;
     }
 

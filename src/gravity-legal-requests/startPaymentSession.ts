@@ -1,8 +1,8 @@
-import { gqlEndpoint } from '@/gravity-legal';
+import { gqlEndpoint } from '@/gravity-legal-requests';
 import { GraphQLClient, gql } from 'graphql-request';
 
 const START_PAYMENT_SESSION = gql`
-  query StartPaymentSession($input: CreatePaymentTokenInput) {
+  mutation StartPaymentSession($input: CreatePaymentTokenInput) {
     createPaymentToken(input: $input) {
       paymentToken
     }

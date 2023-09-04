@@ -13,15 +13,15 @@ import Link from 'next/link';
 interface UserProfileProps {
   name: string;
   image: string;
-  email: string;
+  username: string;
 }
 
 export const UserProfile = (props: UserProfileProps) => {
-  const { name, image, email } = props;
+  const { name, image, username } = props;
 
   return (
     <Menu>
-      <MenuButton>
+      <MenuButton textAlign='left'>
         <HStack spacing='3' ps='2'>
           <Avatar name={name} src={image} boxSize='10' />
           <Box>
@@ -29,7 +29,7 @@ export const UserProfile = (props: UserProfileProps) => {
               {name}
             </Text>
             <Text color='muted' fontSize='sm'>
-              {email}
+              {username}
             </Text>
           </Box>
         </HStack>

@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma db push"
+    "postinstall": "prisma db push",
+    "reset-db": "rm -f prisma/legal-wave.sqlite && prisma db push && prisma generate"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.1",
     "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/pro-theme": "^0.1.1",
     "@chakra-ui/react": "^2.6.1",

@@ -1,4 +1,4 @@
-import legal from '@/gravity-legal';
+import legal from '@/gravity-legal-requests';
 
 export interface StartPaymentSessionParams {
   firmToken: string;

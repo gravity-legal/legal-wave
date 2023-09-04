@@ -1,15 +1,15 @@
-import { prisma } from '@/conn/prisma';
+import { prisma } from '@/lib/prisma';
 import { User } from '@prisma/client';
 
 export interface UserLoginParams {
-  email: string;
+  username: string;
   password: string;
 }
 
 export async function userLogin(params: UserLoginParams): Promise<User> {
   const user = await prisma.user.findUnique({
     where: {
-      email: params.email,
+      username: params.username,
     },
   });
 

@@ -1,3 +1,4 @@
+import SessionProvider from '@/components/layout/SessionProvider';
 import '@/styles/globals.css';
 import { theme as proTheme } from '@chakra-ui/pro-theme';
 import {
@@ -17,7 +18,9 @@ export const theme = extendTheme(
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <SessionProvider>
+        <Component {...pageProps} />
+      </SessionProvider>
     </ChakraProvider>
   );
 }

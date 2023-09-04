@@ -6,9 +6,9 @@ import {
   Flex,
   useDisclosure,
 } from '@chakra-ui/react';
+import { ToggleButton } from '../ToggleButton';
 import { Logo } from './Logo';
 import { Sidebar } from './Sidebar';
-import { ToggleButton } from './ToggleButton';
 
 export const Navbar = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();

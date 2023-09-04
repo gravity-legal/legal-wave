@@ -8,7 +8,7 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import { FC } from 'react';
-import { FieldState } from '../hooks/GravityLegal';
+import { FieldState } from './hooks/GravityLegal';
 
 export interface HostedFieldInputProps {
   id: string;

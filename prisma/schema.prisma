@@ -21,10 +21,10 @@ model Firm {
 
 model User {
   createdAt DateTime @default(now())
-  email     String   @unique
   firm      Firm     @relation(fields: [firmId], references: [id])
   firmId    String
   id        String   @id @default(cuid())
   password  String
   updatedAt DateTime @updatedAt
+  username  String   @unique
 }

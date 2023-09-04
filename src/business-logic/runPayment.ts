@@ -1,4 +1,4 @@
-import legal, { Payment } from '@/gravity-legal';
+import legal, { Payment } from '@/gravity-legal-requests';
 
 export interface RunPaymentParams {
   amount: number;

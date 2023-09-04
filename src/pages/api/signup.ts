@@ -10,9 +10,9 @@ export default async function handler(
   const { body } = req;
 
   const user = await userSignup({
-    email: body.email,
     firmName: body.firmName,
     password: body.password,
+    username: body.username,
   });
 
   const cookies = new Cookies(req, res);

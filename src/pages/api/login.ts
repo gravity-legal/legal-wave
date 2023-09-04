@@ -10,7 +10,7 @@ export default async function handler(
 
   try {
     const user = await userLogin({
-      email: body.email,
+      username: body.username,
       password: body.password,
     });
 

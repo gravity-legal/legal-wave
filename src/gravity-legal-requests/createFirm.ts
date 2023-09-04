@@ -1,4 +1,4 @@
-import { gqlEndpoint } from '@/gravity-legal';
+import { gqlEndpoint } from '@/gravity-legal-requests';
 import { getPartnerToken } from '@/lib/getPartnerToken';
 import { GraphQLClient, gql } from 'graphql-request';
 
@@ -6,6 +6,10 @@ const CREATE_FIRM = gql`
   mutation CreateFirm($input: CreateFirmInput!) {
     createFirm(input: $input) {
       apiToken
+      signUpLink {
+        link
+        expiresAt
+      }
     }
   }
 `;
@@ -17,10 +21,14 @@ export interface CreateFirmInput {
 export interface CreateFirmData {
   createFirm: {
     apiToken: string;
+    signUpLink: {
+      link: string;
+      expiresAt: Date;
+    };
   };
 }
 
-export async function createFirm(name: string): Promise<string> {
+export async function createFirm(name: string): Promise<CreateFirmData> {
   const partnerToken = getPartnerToken();
 
   const client = new GraphQLClient(gqlEndpoint, {
@@ -32,10 +40,9 @@ export async function createFirm(name: string): Promise<string> {
   const variables = {
     input: {
       name,
-      mockOnboarding: true,
+      mockOnboarding: false,
     },
   };
 
-  const result = await client.request<CreateFirmData>(CREATE_FIRM, variables);
-  return result.createFirm.apiToken;
+  return client.request<CreateFirmData>(CREATE_FIRM, variables);
 }

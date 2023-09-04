@@ -1,10 +1,12 @@
-import { Logo } from '@/frontend/components/Logo';
-import { PasswordField } from '@/frontend/components/PasswordField';
+import { PasswordField } from '@/components/auth/PasswordField';
+import { Logo } from '@/components/layout/Logo';
 import {
   Box,
   Button,
   Container,
+  Flex,
   FormControl,
+  FormHelperText,
   FormLabel,
   Heading,
   HStack,
@@ -19,7 +21,7 @@ import { useForm } from 'react-hook-form';
 
 interface FormData {
   firmName: string;
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -50,7 +52,9 @@ export const SignupPage: NextPage = () => {
       <form onSubmit={submitHandler}>
         <Stack spacing='8'>
           <Stack spacing='6'>
-            <Logo />
+            <Flex justifyContent='center'>
+              <Logo />
+            </Flex>
             <Stack spacing={{ base: '2', md: '3' }} textAlign='center'>
               <Heading size={{ base: 'xs', md: 'sm' }}>
                 Sign up for a Legal Wave account
@@ -77,10 +81,16 @@ export const SignupPage: NextPage = () => {
                 <FormControl>
                   <FormLabel htmlFor='firmName'>Firm name</FormLabel>
                   <Input id='firmName' type='text' {...register('firmName')} />
+                  <FormHelperText fontSize='xs'>
+                    eg: Foo Bar, PLLC
+                  </FormHelperText>
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor='email'>Email</FormLabel>
-                  <Input id='email' type='email' {...register('email')} />
+                  <FormLabel htmlFor='username'>Username</FormLabel>
+                  <Input id='username' type='text' {...register('username')} />
+                  <FormHelperText fontSize='xs'>
+                    eg: foobar, johnsmith, etc.
+                  </FormHelperText>
                 </FormControl>
                 <PasswordField {...register('password')} />
               </Stack>
