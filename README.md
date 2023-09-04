@@ -1,3 +1,5 @@
+![legal wave logo](public/legal-wave-logo.png)
+
 # Legal Wave
 
 Legal Wave is an example application to showcase what can be done with the Gravity Legal payments platform. It is written in Typescript using [Next.js](https://nextjs.org/) a react framework. We also use [Chakra UI](https://chakra-ui.com/) to speed up build the UI.
