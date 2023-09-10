@@ -1,14 +1,11 @@
 import { Layout } from '@/components/layout/Layout';
 import { startPaymentSession } from '@/gravity-legal-requests/startPaymentSession';
-import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from 'next';
+import { InferGetServerSidePropsType, NextPage } from 'next';
 
 import { CreditCardBrandIcon } from '@/components/credit-cards/CreditCardBrandIcon';
 import { useGravityLegal } from '@/components/hooks/useGravityLegal';
 import HostedFieldInput from '@/components/HostedFieldInput';
+import { requireAuth } from '@/lib/session';
 import {
   Alert,
   AlertIcon,
@@ -129,7 +126,7 @@ const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
           errorOnInvalid: true,
         }).intValue;
 
-        const result = await fetch('/api/complete-payment', {
+        const response = await fetch('/api/complete-payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -142,8 +139,15 @@ const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
           }),
         });
 
-        setResult(await result.json());
+        // const json = await handleJsonResponse(response);
+
+        if (response.ok) {
+          setResult(await response.json());
+        }
+
+        console.log(response);
       } catch (e) {
+        console.log('error: ', e);
         setError(e);
       } finally {
         setLoading(false);
@@ -203,7 +207,7 @@ const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
               <FormControl>
                 <FormLabel htmlFor='amount'>Amount</FormLabel>
                 <InputGroup>
-                  <InputLeftAddon children='USD' />
+                  <InputLeftAddon>USD</InputLeftAddon>
                   {/* <Input
                 as={MaskedInput}
                 id='amount'
@@ -330,11 +334,7 @@ const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<{
-  paymentToken: string;
-}> = async ({ req }) => {
-  const { session } = req as any;
-
+export const getServerSideProps = requireAuth(async ({ session }) => {
   // grab the Gravity Legal Firm Token
   // from the current authenticated user
   const firmToken = session.user!.firm.glApiToken as string;
@@ -347,6 +347,6 @@ export const getServerSideProps: GetServerSideProps<{
       paymentToken,
     },
   };
-};
+});
 
 export default PaymentIntentPage;

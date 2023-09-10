@@ -10,60 +10,41 @@ import {
   Text,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { BsFillMoonFill, BsStars } from 'react-icons/bs';
-import { FaAccessibleIcon, FaExpandAlt, FaPaintBrush } from 'react-icons/fa';
-import { FiArrowRight } from 'react-icons/fi';
-import { IoRocketSharp } from 'react-icons/io5';
+import {
+  FiArrowRight,
+  FiCreditCard,
+  FiDollarSign,
+  FiLink,
+} from 'react-icons/fi';
 
 export const features = [
   {
     name: 'Payment Intents',
     description:
-      'The simplest way to collect money. Collect payments from your form using our Hosted Fields. A Client is not required.',
-    icon: BsStars,
+      'The simplest way to collect money. Collect payments directly from your app using Hosted Fields. Client is not required.',
+    icon: FiDollarSign,
     href: '/payment-intents',
   },
   {
-    name: 'Production Ready',
+    name: 'Stored Payment Methods',
     description:
-      'Effortlessly create your next production-ready experience with Chakra UI Pro components.',
-    icon: IoRocketSharp,
+      'Save cards or ach details in our vault, then use them later to process payments.',
+    icon: FiCreditCard,
     href: '/payment-intents',
   },
   {
-    name: 'Light & Dark',
+    name: 'Payment Links',
     description:
-      'All components support a light and a dark color mode out of the box.',
-    icon: BsFillMoonFill,
-    href: '/payment-intents',
-  },
-  {
-    name: 'Themeable',
-    description:
-      "Your style. Your blue. Customize the components as you need them. It's that simple.",
-    icon: FaPaintBrush,
-    href: '/payment-intents',
-  },
-  {
-    name: 'Fully Responsive',
-    description:
-      'Responsive components that look great on mobile, tablet and desktop.',
-    icon: FaExpandAlt,
-    href: '/payment-intents',
-  },
-  {
-    name: 'Accessible',
-    description:
-      "Accessibility first. That's why we pay attention to accessibility right from the start.",
-    icon: FaAccessibleIcon,
-    href: '/payment-intents',
+      'Create a unique payment link for a Client (Matter optional) for a specified amount.',
+    icon: FiLink,
+    href: '/payment-links',
   },
 ];
 
 export default function PaymentVehicleSplash() {
   return (
     <Box as='section' bg='bg.surface'>
-      <Container py={{ base: '16', md: '24' }}>
+      <Container pb={{ base: '16', md: '24' }}>
         <Stack spacing={{ base: '12', md: '16' }}>
           <Stack spacing={{ base: '4', md: '5' }} maxW='3xl'>
             <Stack spacing='3'>
@@ -72,10 +53,10 @@ export default function PaymentVehicleSplash() {
                 fontWeight='semibold'
                 color='accent'
               >
-                You're approved!
+                You&apos;re approved!
               </Text>
               <Heading size={{ base: 'sm', md: 'md' }}>
-                Let's collect some money 💸🤑
+                Let&apos;s collect some money 💸🤑
               </Heading>
             </Stack>
             <Text color='fg.muted' fontSize={{ base: 'lg', md: 'xl' }}>
@@ -107,7 +88,8 @@ export default function PaymentVehicleSplash() {
                 <NextLink href={feature.href} passHref>
                   <Button
                     as='a'
-                    variant='text'
+                    variant='outline'
+                    colorScheme='blue'
                     rightIcon={<FiArrowRight />}
                     alignSelf='start'
                   >

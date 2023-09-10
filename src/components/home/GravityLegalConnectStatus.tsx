@@ -3,6 +3,7 @@ import {
   Badge,
   Box,
   Button,
+  Container,
   Stack,
   StackDivider,
   Text,
@@ -13,48 +14,69 @@ export const GravityLegalConnectionStatus: FC = (props) => {
   const session = useSession();
   const { firm, glFirm } = session;
 
-  return (
-    <Box as='section' py={{ base: '4', md: '8' }} maxW='3xl'>
-      <Box
-        bg='white'
-        boxShadow='sm'
-        borderRadius='lg'
-        p={{ base: '4', md: '6' }}
-      >
-        <Stack spacing='5' divider={<StackDivider />}>
-          <Stack
-            justify='space-between'
-            direction={{ base: 'column', sm: 'row' }}
-            spacing='5'
-          >
-            <Stack spacing='1'>
-              <Text textStyle='lg' fontWeight='medium'>
-                Connected to Gravity Legal ✅
-              </Text>
-              <Text textStyle='xs' color='fg.muted'>
-                {glFirm?.id}
-              </Text>
-            </Stack>
-            <DisconnectButton />
-          </Stack>
-          <Stack justify='space-between' direction='row' spacing='4'>
-            <Stack spacing='0.5' fontSize='sm'>
-              <Text color='fg.emphasized' fontWeight='medium'>
-                Application Status
-              </Text>
-              <Text color='fg.muted'>
-                Your payments application is pending. Once approved you'll be
-                able to collect money!
-              </Text>
-            </Stack>
+  const applicationMessage = () => {
+    if (glFirm?.isAcceptingPayments) {
+      return 'Your payments application is approved. You are ready to collect money!';
+    }
 
-            <Box>
-              <Badge colorScheme='yellow'>Pending</Badge>
-            </Box>
+    return "Your payments application is pending. Once approved you'll be able to collect money!";
+  };
+
+  const applicationBadge = () => {
+    if (glFirm?.isAcceptingPayments) {
+      return <Badge colorScheme='green'>Ready</Badge>;
+    }
+
+    return <Badge colorScheme='yellow'>Pending</Badge>;
+  };
+
+  const truncatedFirmId = () => {
+    if (!glFirm?.id) {
+      return '';
+    }
+
+    return glFirm.id.slice(0, 6) + '...' + glFirm.id.slice(-6);
+  };
+
+  return (
+    <Container>
+      <Box as='section' py={{ base: '4', md: '8' }} maxW='3xl'>
+        <Box
+          bg='white'
+          boxShadow='sm'
+          borderRadius='lg'
+          p={{ base: '4', md: '6' }}
+        >
+          <Stack spacing='5' divider={<StackDivider />}>
+            <Stack
+              justify='space-between'
+              direction={{ base: 'column', sm: 'row' }}
+              spacing='5'
+            >
+              <Stack spacing='1'>
+                <Text textStyle='lg' fontWeight='medium'>
+                  Connected to Gravity Legal ✅
+                </Text>
+                <Text textStyle='xs' color='fg.muted'>
+                  <strong>{glFirm?.name}</strong> {truncatedFirmId()}
+                </Text>
+              </Stack>
+              <DisconnectButton />
+            </Stack>
+            <Stack justify='space-between' direction='row' spacing='4'>
+              <Stack spacing='0.5' fontSize='sm'>
+                <Text color='fg.emphasized' fontWeight='medium'>
+                  Application Status
+                </Text>
+                <Text color='fg.muted'>{applicationMessage()}</Text>
+              </Stack>
+
+              <Box>{applicationBadge()}</Box>
+            </Stack>
           </Stack>
-        </Stack>
+        </Box>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

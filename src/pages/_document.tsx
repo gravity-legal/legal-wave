@@ -8,7 +8,7 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head>
-        <script src={sdkSrc} />
+        <script src={sdkSrc} async />
       </Head>
       <body>
         <Main />

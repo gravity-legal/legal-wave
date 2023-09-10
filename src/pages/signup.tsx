@@ -31,6 +31,8 @@ export const SignupPage: NextPage = () => {
 
   const submitHandler = handleSubmit(async (data) => {
     try {
+      setLoading(true);
+
       await fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -40,6 +42,8 @@ export const SignupPage: NextPage = () => {
       window.location.href = '/';
     } catch (e) {
       console.log(e);
+    } finally {
+      setLoading(false);
     }
   });
 

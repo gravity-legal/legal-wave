@@ -1,12 +1,22 @@
-import { prisma } from '@/lib/prisma';
-import { NextApiRequestWithSession } from '@/server';
-import type { NextApiResponse } from 'next';
+import { disconnect as disconnectGravityLegal } from '@/gravity-legal-requests/disconnect';
+import prisma from '@/lib/prisma';
+import { getSessionFromRequestOrThrow } from '@/lib/session';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
-  req: NextApiRequestWithSession,
+  req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { session } = req;
+  const session = await getSessionFromRequestOrThrow(req);
+
+  const firmToken = session.user.firm.glApiToken;
+
+  if (!firmToken) {
+    // no token, so not connected
+    return res.send(200);
+  }
+
+  await disconnectGravityLegal(firmToken);
 
   // Nullify the Firm Api Token in our database
   await prisma.firm.update({

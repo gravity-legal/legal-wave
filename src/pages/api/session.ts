@@ -1,5 +1,5 @@
 import { GravityLegalFirm, getFirm } from '@/gravity-legal-requests/getFirm';
-import { prisma } from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 import { Firm, User } from '@prisma/client';
 import Cookies from 'cookies';
 import type { NextApiRequest, NextApiResponse } from 'next';

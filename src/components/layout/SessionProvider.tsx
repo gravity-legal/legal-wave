@@ -22,6 +22,7 @@ export interface Session {
   glFirm?: {
     id: string;
     isAcceptingPayments: boolean;
+    name: string;
   };
 }
 

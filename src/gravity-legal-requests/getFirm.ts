@@ -6,6 +6,7 @@ const GET_FIRM = gql`
     firm {
       id
       isAcceptingPayments
+      name
     }
   }
 `;
@@ -13,6 +14,7 @@ const GET_FIRM = gql`
 export interface GravityLegalFirm {
   id: string;
   isAcceptingPayments: boolean;
+  name: string;
 }
 
 export interface GetFirmData {

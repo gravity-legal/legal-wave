@@ -1,7 +1,7 @@
 import { Divider, Flex, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FiDollarSign, FiHome, FiSettings } from 'react-icons/fi';
+import { FiCreditCard, FiDollarSign, FiHome } from 'react-icons/fi';
 import { Logo2 } from './Logo';
 import { NavButton } from './NavButton';
 import { useSession } from './SessionProvider';
@@ -28,24 +28,28 @@ export const Sidebar = () => {
           <Stack spacing={{ base: '5', sm: '6' }} shouldWrapChildren>
             <Logo2 />
             <Stack spacing='1'>
-              <Link href='/'>
-                <NavButton label='Home' icon={FiHome} />
+              <Link href='/' passHref>
+                <NavButton
+                  label='Home'
+                  icon={FiHome}
+                  isActive={isActive('/')}
+                />
               </Link>
 
-              <Link href='/payment-intents'>
-                <NavButton label='Payment Intents' icon={FiDollarSign} />
+              <Link href='/payment-intents' passHref>
+                <NavButton
+                  label='Payment Intents'
+                  icon={FiDollarSign}
+                  isActive={isActive('/payment-intents')}
+                />
               </Link>
 
-              {/* <Link href='/stored-payment-methods'>
-                <NavButton label='Stored Payment Methods' icon={FiCreditCard} />
-              </Link> */}
-
-              {/* <Divider />
-
-              <PaymentVehicleCollapse /> */}
-
-              <Link href='/settings'>
-                <NavButton label='Settings' icon={FiSettings} mt='auto' />
+              <Link href='/stored-payment-methods'>
+                <NavButton
+                  label='Stored Payment Methods'
+                  icon={FiCreditCard}
+                  isActive={isActive('/stored-payment-methods')}
+                />
               </Link>
             </Stack>
           </Stack>

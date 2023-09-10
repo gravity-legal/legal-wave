@@ -62,7 +62,7 @@ export const useGravityLegal = (
     });
 
     return () => gl.removeChangeListener(listener);
-  }, [formType]);
+  }, [formType, paymentToken]);
 
   return {
     state: hostedFieldsState,

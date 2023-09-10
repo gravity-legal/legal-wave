@@ -1,12 +1,13 @@
 import { exchangeCodeForFirmToken } from '@/gravity-legal-requests/exchangeCodeForToken';
-import { prisma } from '@/lib/prisma';
-import { NextApiRequestWithSession } from '@/server';
-import { NextApiResponse } from 'next';
+import prisma from '@/lib/prisma';
+import { getSessionFromRequestOrThrow } from '@/lib/session';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
-  req: NextApiRequestWithSession,
+  req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const session = await getSessionFromRequestOrThrow(req);
   const { query } = req;
   const { code, state } = query;
   // The state that was passed to
@@ -19,7 +20,7 @@ export default async function handler(
 
   // now save the firmToken
   // under this user's firm
-  const { firm } = req.session.user;
+  const { firm } = session.user;
   await prisma.firm.update({
     where: {
       id: firm.id,

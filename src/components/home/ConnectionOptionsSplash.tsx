@@ -15,10 +15,11 @@ import {
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 
-export const ConnectionOptionsSplash: FC = (props) => {
-  const connectUrl =
-    process.env.NEXT_PUBLIC_GL_APP_DOMAIN + '/connect/legal-wave';
+export interface Props {
+  connectUrl: string;
+}
 
+export const ConnectionOptionsSplash: FC<Props> = ({ connectUrl }) => {
   return (
     <Container py={{ base: '16', md: '24' }}>
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={12}>
@@ -32,7 +33,7 @@ export const ConnectionOptionsSplash: FC = (props) => {
               Connect
             </Text>
             <Heading as='h1' size={{ base: 'md', md: 'lg' }}>
-              Let's get started 🚀
+              Let&apos;s get started 🚀
             </Heading>
           </Stack>
           <Text textStyle={{ base: 'lg', md: 'xl' }} color='fg.muted'>
@@ -52,10 +53,10 @@ export const ConnectionOptionsSplash: FC = (props) => {
               <Stack spacing={{ base: '6', md: '8' }}>
                 <Stack spacing={{ base: '4', md: '5' }}>
                   <Text color='fg.muted'>
-                    With Connect, your users will <strong>connect</strong> their
-                    Gravity Legal account to their Legal Wave account.
-                    Connecting gives Legal Wave permission to manage the firm's
-                    Gravity Legal acount on their behalf.
+                    With Connect, users <i>connect</i> their existing Gravity
+                    Legal account to their Legal Wave account. Connecting gives
+                    Legal Wave permission to manage the firm&apos;s Gravity
+                    Legal account on their behalf.
                   </Text>
                 </Stack>
                 <Stack spacing={{ base: '4' }}>
@@ -86,10 +87,10 @@ export const ConnectionOptionsSplash: FC = (props) => {
               <Stack spacing={{ base: '6', md: '8' }}>
                 <Stack spacing={{ base: '4', md: '5' }}>
                   <Text color='fg.muted'>
-                    Sign Up Link is for firms who don't already have a Gravity
-                    Legal account. Partner's will create a new Firm through the
-                    API then direct their users to a unique sign up link for
-                    that Firm.
+                    Sign Up Link is for firms who don&apos;t already have a
+                    Gravity Legal account. Partner&apos;s will create a new Firm
+                    through the API then direct their users to a unique sign up
+                    link for that Firm.
                   </Text>
                 </Stack>
                 <Stack spacing={{ base: '4' }}>
