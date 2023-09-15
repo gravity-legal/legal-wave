@@ -12,6 +12,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Code,
   Container,
   Divider,
   FormControl,
@@ -50,6 +51,21 @@ interface PaymentResult {
   amountProcessed: number;
   status: 'success' | 'partial_success' | 'failure';
 }
+
+export const getServerSideProps = requireAuth(async ({ session }) => {
+  // grab the Gravity Legal Firm Token
+  // from the current authenticated user
+  const firmToken = session.user!.firm.glApiToken as string;
+
+  // start a payment session
+  const paymentToken = await startPaymentSession({ firmToken });
+
+  return {
+    props: {
+      paymentToken,
+    },
+  };
+});
 
 export const PaymentIntentPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -183,9 +199,17 @@ const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
           position='relative'
           width='lg'
         >
-          <Stack spacing='6' textAlign='center'>
-            <Heading>Success!</Heading>
-            <Button variant='link' onClick={() => router.reload()}>
+          <Stack spacing='6'>
+            <Heading textAlign='center'>Success!</Heading>
+            <Text>Result:</Text>
+            <Code
+              children={JSON.stringify(result, null, 2)}
+              display='block'
+              whiteSpace='pre'
+              p={4}
+              fontSize='xs'
+            />
+            <Button variant='solid' onClick={() => router.reload()}>
               Collect more
             </Button>
           </Stack>
@@ -333,20 +357,5 @@ const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
     </Stack>
   );
 };
-
-export const getServerSideProps = requireAuth(async ({ session }) => {
-  // grab the Gravity Legal Firm Token
-  // from the current authenticated user
-  const firmToken = session.user!.firm.glApiToken as string;
-
-  // start a payment session
-  const paymentToken = await startPaymentSession({ firmToken });
-
-  return {
-    props: {
-      paymentToken,
-    },
-  };
-});
 
 export default PaymentIntentPage;

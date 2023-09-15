@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 5005",
+    "dev": "next dev -p 7001",
     "build": "next build",
-    "start": "next start -p 5005",
+    "start": "next start -p 7001",
     "lint": "next lint",
     "postinstall": "prisma db push",
     "reset-db": "rm -f prisma/legal-wave.sqlite && prisma db push && prisma generate"

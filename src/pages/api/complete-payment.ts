@@ -1,5 +1,4 @@
-import { runPayment } from '@/business-logic';
-import { Payment, RunPaymentInput } from '@/gravity-legal-requests';
+import gl, { Payment, RunPaymentInput } from '@/gravity-legal-requests';
 import { getSessionFromRequestOrThrow } from '@/lib/session';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -18,6 +17,6 @@ export default async function handler(
     paymentToken: body.paymentToken,
   };
 
-  const payment = await runPayment(firmToken, runPaymentInput);
-  res.status(200).json(payment);
+  const result = await gl.runPayment(firmToken, runPaymentInput);
+  res.status(200).json(result.runPayment);
 }

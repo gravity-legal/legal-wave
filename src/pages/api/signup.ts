@@ -1,4 +1,4 @@
-import { userSignup } from '@/business-logic/userSignup';
+import prisma from '@/lib/prisma';
 import { User } from '@prisma/client';
 import Cookies from 'cookies';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -9,10 +9,16 @@ export default async function handler(
 ) {
   const { body } = req;
 
-  const user = await userSignup({
-    firmName: body.firmName,
-    password: body.password,
-    username: body.username,
+  const user = await prisma.user.create({
+    data: {
+      password: body.password,
+      username: body.username,
+      firm: {
+        create: {
+          name: body.firmName,
+        },
+      },
+    },
   });
 
   const cookies = new Cookies(req, res);

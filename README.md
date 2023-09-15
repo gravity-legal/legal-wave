@@ -19,7 +19,7 @@ GL_PARTNER_TOKEN=p_secret_xxxxxxxxxxxxx
 
 5. Run `npm install` to install dependencies
 6. Run `npm run dev`
-7. Visit [http://localhost:5005](http://localhost:5005)
+7. Visit [http://localhost:7001](http://localhost:7001)
 
 ### Database
 

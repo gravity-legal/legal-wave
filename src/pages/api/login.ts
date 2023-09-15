@@ -1,4 +1,4 @@
-import { userLogin } from '@/business-logic/userLogin';
+import prisma from '@/lib/prisma';
 import Cookies from 'cookies';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -9,10 +9,19 @@ export default async function handler(
   const { body } = req;
 
   try {
-    const user = await userLogin({
-      username: body.username,
-      password: body.password,
+    const user = await prisma.user.findUnique({
+      where: {
+        username: body.username,
+      },
     });
+
+    if (!user) {
+      throw new Error('user not found');
+    }
+
+    if (user.password !== body.password) {
+      throw new Error('invalid password');
+    }
 
     const cookies = new Cookies(req, res);
     cookies.set('wave:userId', user.id);

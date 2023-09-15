@@ -24,7 +24,7 @@ const HostedFieldInput: FC<HostedFieldInputProps> = ({
   fieldState,
 }) => {
   const loading = fieldState?.loading ?? true;
-  const { error } = fieldState || {};
+  const { error } = fieldState ?? {};
 
   return (
     <FormControl isInvalid={!!error}>

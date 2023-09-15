@@ -8,7 +8,6 @@ interface NavButtonProps extends ButtonProps {
 
 export const NavButton = (props: NavButtonProps) => {
   const { icon, label, ...buttonProps } = props;
-  console.log(label, props.isActive);
   return (
     <Button
       variant='ghost'

@@ -54,16 +54,6 @@ interface Options {
     routingNumber?: FieldConfig;
     accountHolderName?: FieldConfig;
   };
-  // onLoadSuccess?: (state: HostedFieldsState) => void;
-  // onLoadError?: (err: Error, state: HostedFieldsState) => void;
-  // onFieldsLoaded?: (state: HostedFieldsState) => void;
-  // onFieldError?: (err: FieldError, state: HostedFieldsState) => void;
-  // onFieldErrorCleared?: (
-  //   fieldState: FieldState,
-  //   state: HostedFieldsState
-  // ) => void;
-  // onSurcharingChange?: (state: HostedFieldsState) => void;
-  // onCardDataChange?: (cardData: any, state: HostedFieldsState) => void;
 }
 
 export interface HostedFieldsState {
