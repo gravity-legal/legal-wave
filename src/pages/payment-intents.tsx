@@ -202,13 +202,9 @@ const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
           <Stack spacing='6'>
             <Heading textAlign='center'>Success!</Heading>
             <Text>Result:</Text>
-            <Code
-              children={JSON.stringify(result, null, 2)}
-              display='block'
-              whiteSpace='pre'
-              p={4}
-              fontSize='xs'
-            />
+            <Code display='block' whiteSpace='pre' p={4} fontSize='xs'>
+              {JSON.stringify(result, null, 2)}
+            </Code>
             <Button variant='solid' onClick={() => router.reload()}>
               Collect more
             </Button>
