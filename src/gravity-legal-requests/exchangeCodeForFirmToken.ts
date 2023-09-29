@@ -12,8 +12,6 @@ export interface StartPaymentSessionResult {
 }
 
 export async function exchangeCodeForFirmToken(code: string): Promise<string> {
-  console.log('endpoint: ', gqlEndpoint);
-
   const client = new GraphQLClient(gqlEndpoint, {
     headers: {
       'x-api-key': process.env.GL_PARTNER_TOKEN as string,

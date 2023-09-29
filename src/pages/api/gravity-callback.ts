@@ -1,4 +1,4 @@
-import { exchangeCodeForFirmToken } from '@/gravity-legal-requests/exchangeCodeForToken';
+import { exchangeCodeForFirmToken } from '@/gravity-legal-requests/exchangeCodeForFirmToken';
 import prisma from '@/lib/prisma';
 import { getSessionFromRequestOrThrow } from '@/lib/session';
 import { NextApiRequest, NextApiResponse } from 'next';

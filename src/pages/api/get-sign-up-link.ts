@@ -1,5 +1,5 @@
 import { createFirm } from '@/gravity-legal-requests';
-import { createFirmSignUpLink } from '@/gravity-legal-requests/generateFirmSignUpLink';
+import { createFirmSignUpLink } from '@/gravity-legal-requests/createFirmSignUpLink';
 import prisma from '@/lib/prisma';
 import { getSessionFromRequestOrThrow } from '@/lib/session';
 import type { NextApiRequest, NextApiResponse } from 'next';

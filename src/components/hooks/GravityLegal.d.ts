@@ -44,7 +44,8 @@ interface FieldConfig {
 }
 
 interface Options {
-  paymentToken: string;
+  paymentToken?: string;
+  savePaymentMethodToken?: string;
   activeForm: FormType;
   fields: {
     cardNumber?: FieldConfig;

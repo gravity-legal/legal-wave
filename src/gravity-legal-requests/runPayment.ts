@@ -6,6 +6,13 @@ const RUN_PAYMENT = gql`
     runPayment(input: $input) {
       id
       status
+      storedPaymentMethod {
+        cardBrand
+        payerName
+        paymentMethod
+        lastFour
+        id
+      }
       transactions {
         id
         amountProcessed
@@ -14,12 +21,14 @@ const RUN_PAYMENT = gql`
   }
 `;
 
+export type PaymentMethod = 'CREDIT' | 'DEBIT' | 'ACH';
+
 export interface RunPaymentInput {
   amount: number;
   payerEmail?: string;
   payerName?: string;
   payerZip?: string;
-  paymentMethod: 'CREDIT' | 'DEBIT' | 'ACH';
+  paymentMethod: PaymentMethod;
   paymentToken: string;
   savePaymentMethod?: boolean;
 }
@@ -31,6 +40,21 @@ export interface RunPaymentData {
 export interface Payment {
   id: string;
   status: string;
+  storedPaymentMethod: StoredPaymentMethod;
+  transactions: Transaction[];
+}
+
+export interface Transaction {
+  id: string;
+  amountProcessed: number;
+}
+
+export interface StoredPaymentMethod {
+  cardBrand: string;
+  payerName: string;
+  paymentMethod: string;
+  lastFour: string;
+  id: string;
 }
 
 export async function runPayment(

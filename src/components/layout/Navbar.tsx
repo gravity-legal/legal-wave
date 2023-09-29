@@ -6,7 +6,7 @@ import {
   Flex,
   useDisclosure,
 } from '@chakra-ui/react';
-import { ToggleButton } from '../ToggleButton';
+import { ToggleButton } from '../ui/ToggleButton';
 import { Logo } from './Logo';
 import { Sidebar } from './Sidebar';
 

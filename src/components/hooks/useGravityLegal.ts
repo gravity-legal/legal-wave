@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { ChangeEvent, HostedFieldsState } from './GravityLegal';
 
+export interface Params {
+  paymentToken?: string;
+  savePaymentMethodToken?: string;
+  formType: 'card' | 'ach';
+}
+
 export const useGravityLegal = (
-  paymentToken: string,
-  formType: 'card' | 'ach'
-) => {
+  params: Params
+): { state: HostedFieldsState | undefined } => {
   const [hostedFieldsState, setHostedFieldsState] =
     useState<HostedFieldsState>();
 
@@ -31,8 +36,9 @@ export const useGravityLegal = (
     };
 
     gl.init({
-      paymentToken,
-      activeForm: formType,
+      paymentToken: params.paymentToken,
+      savePaymentMethodToken: params.savePaymentMethodToken,
+      activeForm: params.formType,
       fields: {
         accountNumber: {
           containerId: 'account-number',
@@ -62,7 +68,7 @@ export const useGravityLegal = (
     });
 
     return () => gl.removeChangeListener(listener);
-  }, [formType, paymentToken]);
+  }, [params.formType, params.paymentToken, params.savePaymentMethodToken]);
 
   return {
     state: hostedFieldsState,

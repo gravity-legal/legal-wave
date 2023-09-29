@@ -1,27 +1,27 @@
 import { gqlEndpoint } from '@/gravity-legal-requests';
 import { GraphQLClient, gql } from 'graphql-request';
 
-const START_PAYMENT_SESSION = gql`
-  mutation StartPaymentSession($input: CreatePaymentTokenInput) {
+const CREATE_PAYMENT_TOKEN = gql`
+  mutation CreatePaymentToken($input: CreatePaymentTokenInput) {
     createPaymentToken(input: $input) {
       paymentToken
     }
   }
 `;
 
-export interface StartPaymentSessionParams {
+export interface CreatePaymentTokenParams {
   firmToken: string;
   bankAccountId?: string;
 }
 
-export interface StartPaymentSessionResult {
+export interface CreatePaymentTokenResult {
   createPaymentToken: {
     paymentToken: string;
   };
 }
 
-export async function startPaymentSession(
-  params: StartPaymentSessionParams
+export async function createPaymentToken(
+  params: CreatePaymentTokenParams
 ): Promise<any> {
   const client = new GraphQLClient(gqlEndpoint, {
     headers: {
@@ -37,8 +37,8 @@ export async function startPaymentSession(
     },
   };
 
-  const res = await client.request<StartPaymentSessionResult>(
-    START_PAYMENT_SESSION,
+  const res = await client.request<CreatePaymentTokenResult>(
+    CREATE_PAYMENT_TOKEN,
     options
   );
 
