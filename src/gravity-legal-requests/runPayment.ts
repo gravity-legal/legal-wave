@@ -40,7 +40,7 @@ export interface RunPaymentData {
 export interface Payment {
   id: string;
   status: string;
-  storedPaymentMethod: StoredPaymentMethod;
+  storedPaymentMethod: StoredPaymentMethodForRunPayment;
   transactions: Transaction[];
 }
 
@@ -49,7 +49,7 @@ export interface Transaction {
   amountProcessed: number;
 }
 
-export interface StoredPaymentMethod {
+export interface StoredPaymentMethodForRunPayment {
   cardBrand: string;
   payerName: string;
   paymentMethod: string;
