@@ -76,7 +76,7 @@ export interface HostedFieldsState {
   surcharging: {
     active: boolean;
     willBeApplied: boolean;
-    amount?: number;
+    rate?: number;
   };
 }
 

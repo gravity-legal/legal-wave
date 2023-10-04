@@ -16,7 +16,7 @@ export default async function handler(
       payerEmail: body.email,
       payerName: body.clientName,
       paymentMethod: body.paymentMethod as PaymentMethod,
-      token: body.token,
+      savePaymentMethodToken: body.token,
     });
 
     res.status(200).json(result.completeSavePaymentMethod);

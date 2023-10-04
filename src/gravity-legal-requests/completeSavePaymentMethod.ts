@@ -18,7 +18,7 @@ export interface CompleteSavePaymentMethodInput {
   payerName?: string;
   payerZip?: string;
   paymentMethod: PaymentMethod;
-  token: string;
+  savePaymentMethodToken: string;
 }
 
 export interface CompleteSavePaymentMethodResult {

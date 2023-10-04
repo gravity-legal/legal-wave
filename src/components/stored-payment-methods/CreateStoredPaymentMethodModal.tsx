@@ -2,9 +2,11 @@ import { StoredPaymentMethodForRunPayment } from '@/gravity-legal-requests';
 import { handleJsonResponse } from '@/lib/handleJsonResponse';
 import {
   Button,
+  Code,
   Divider,
   FormControl,
   FormLabel,
+  Heading,
   Input,
   InputRightElement,
   Modal,
@@ -20,6 +22,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Text,
 } from '@chakra-ui/react';
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -139,9 +142,12 @@ const StorePaymentMethodForm: FC<StorePaymentMethodFormProps> = ({
     return (
       <ModalBody pb={6}>
         <Stack spacing='6'>
-          <div>Payment method saved!</div>
-          <pre>{JSON.stringify(result, null, 2)}</pre>
-          <Button colorScheme='blue' mr={3} onClick={onClose}>
+          <Heading textAlign='center'>Success!</Heading>
+          <Text>Result:</Text>
+          <Code display='block' whiteSpace='pre' p={4} fontSize='xs'>
+            {JSON.stringify(result, null, 2)}
+          </Code>
+          <Button variant='solid' onClick={onClose}>
             Close
           </Button>
         </Stack>

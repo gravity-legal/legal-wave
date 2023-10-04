@@ -28,6 +28,7 @@ export default async function handler(
 
     res.send(200);
   } catch (e) {
+    console.log('Error logging in', e);
     res.send(403);
   }
 }

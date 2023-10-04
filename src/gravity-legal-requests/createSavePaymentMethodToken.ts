@@ -6,7 +6,7 @@ const CREATE_SAVE_PAYMENT_METHOD_TOKEN = gql`
     $input: CreateSavePaymentMethodTokenInput
   ) {
     createSavePaymentMethodToken(input: $input) {
-      token
+      savePaymentMethodToken
     }
   }
 `;
@@ -18,7 +18,7 @@ export interface CreateSavePaymentMethodTokenParams {
 
 export interface CreateSavePaymentMethodTokenResult {
   createSavePaymentMethodToken: {
-    token: string;
+    savePaymentMethodToken: string;
   };
 }
 
@@ -44,5 +44,5 @@ export async function createSavePaymentMethodToken(
     options
   );
 
-  return res.createSavePaymentMethodToken.token;
+  return res.createSavePaymentMethodToken.savePaymentMethodToken;
 }

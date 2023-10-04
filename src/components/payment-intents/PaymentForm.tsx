@@ -194,6 +194,12 @@ export const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
                     {...register('amount', { required: true })}
                   />
                 </InputGroup>
+                {hostedFieldsState?.surcharging.willBeApplied && (
+                  <div>
+                    a {hostedFieldsState.surcharging.rate! * 100}% surcharging
+                    fee will be added
+                  </div>
+                )}
               </FormControl>
 
               <Stack spacing='5'>
