@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start -p 7001",
     "lint": "next lint",
+    "ngrok": "~/bin/ngrok http --region=us --domain=gravitylegal.ngrok.io 7001",
     "postinstall": "prisma db push",
     "reset-db": "rm -f prisma/legal-wave.sqlite && prisma db push && prisma generate"
   },

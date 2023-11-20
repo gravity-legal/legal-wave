@@ -1,3 +1,4 @@
+import { useGravityLegal } from '@/gravity-legal-hook/useGravityLegal';
 import { StoredPaymentMethodForRunPayment } from '@/gravity-legal-requests';
 import { handleJsonResponse } from '@/lib/handleJsonResponse';
 import {
@@ -28,7 +29,6 @@ import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import HostedFieldInput from '../HostedFieldInput';
 import { CreditCardBrandIcon } from '../credit-cards/CreditCardBrandIcon';
-import { useGravityLegal } from '../hooks/useGravityLegal';
 import { useSavePaymentMethodToken } from './useSavePaymentMethodToken';
 
 export interface CreateStoredPaymentMethodModalProps {

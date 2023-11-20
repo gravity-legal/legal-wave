@@ -1,6 +1,6 @@
 import { CreditCardBrandIcon } from '@/components/credit-cards/CreditCardBrandIcon';
-import { useGravityLegal } from '@/components/hooks/useGravityLegal';
 import HostedFieldInput from '@/components/HostedFieldInput';
+import { useGravityLegal } from '@/gravity-legal-hook/useGravityLegal';
 import {
   Alert,
   AlertIcon,
