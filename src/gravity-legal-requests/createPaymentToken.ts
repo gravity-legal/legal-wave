@@ -12,6 +12,7 @@ const CREATE_PAYMENT_TOKEN = gql`
 export interface CreatePaymentTokenParams {
   firmToken: string;
   bankAccountId?: string;
+  paymentLinkId?: string;
 }
 
 export interface CreatePaymentTokenResult {
@@ -29,17 +30,16 @@ export async function createPaymentToken(
     },
   });
 
-  const options = {
-    variables: {
-      input: {
-        bankAccountId: params.bankAccountId,
-      },
+  const variables = {
+    input: {
+      bankAccountId: params.bankAccountId,
+      paymentLinkId: params.paymentLinkId,
     },
   };
 
   const res = await client.request<CreatePaymentTokenResult>(
     CREATE_PAYMENT_TOKEN,
-    options
+    variables
   );
 
   return res.createPaymentToken.paymentToken;
