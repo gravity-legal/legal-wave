@@ -30,14 +30,14 @@ export const features = [
     description:
       'Save cards or ach details in our vault, then use them later to process payments.',
     icon: FiCreditCard,
-    href: '/payment-intents',
+    href: '/stored-payment-methods',
   },
   {
     name: 'Payment Links',
     description:
       'Create a unique payment link for a Client (Matter optional) for a specified amount.',
     icon: FiLink,
-    href: '/payment-links',
+    href: '/paylinks',
   },
 ];
 
@@ -93,7 +93,7 @@ export default function PaymentVehicleSplash() {
                     rightIcon={<FiArrowRight />}
                     alignSelf='start'
                   >
-                    Read more
+                    Try it out
                   </Button>
                 </NextLink>
               </Stack>
