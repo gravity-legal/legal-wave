@@ -9,8 +9,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
+import OnboardingFormModal from '../onboarding-form/OnboardingFormModal';
 
 export const GravityLegalConnectionStatus: FC = (props) => {
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const session = useSession();
   const { firm, glFirm } = session;
 
@@ -39,44 +41,53 @@ export const GravityLegalConnectionStatus: FC = (props) => {
   };
 
   return (
-    <Container>
-      <Box as='section' py={{ base: '4', md: '8' }} maxW='3xl'>
-        <Box
-          bg='white'
-          boxShadow='sm'
-          borderRadius='lg'
-          p={{ base: '4', md: '6' }}
-        >
-          <Stack spacing='5' divider={<StackDivider />}>
-            <Stack
-              justify='space-between'
-              direction={{ base: 'column', sm: 'row' }}
-              spacing='5'
-            >
-              <Stack spacing='1'>
-                <Text textStyle='lg' fontWeight='medium'>
-                  Connected to Gravity Legal ✅
-                </Text>
-                <Text textStyle='xs' color='fg.muted'>
-                  <strong>{glFirm?.name}</strong> {truncatedFirmId()}
-                </Text>
+    <>
+      <Container>
+        <Box as='section' py={{ base: '4', md: '8' }} maxW='3xl'>
+          <Box
+            bg='white'
+            boxShadow='sm'
+            borderRadius='lg'
+            p={{ base: '4', md: '6' }}
+          >
+            <Stack spacing='5' divider={<StackDivider />}>
+              <Stack
+                justify='space-between'
+                direction={{ base: 'column', sm: 'row' }}
+                spacing='5'
+              >
+                <Stack spacing='1'>
+                  <Text textStyle='lg' fontWeight='medium'>
+                    Connected to Gravity Legal ✅
+                  </Text>
+                  <Text textStyle='xs' color='fg.muted'>
+                    <strong>{glFirm?.name}</strong> {truncatedFirmId()}
+                  </Text>
+                </Stack>
+                <DisconnectButton />
               </Stack>
-              <DisconnectButton />
-            </Stack>
-            <Stack justify='space-between' direction='row' spacing='4'>
-              <Stack spacing='0.5' fontSize='sm'>
-                <Text color='fg.emphasized' fontWeight='medium'>
-                  Application Status
-                </Text>
-                <Text color='fg.muted'>{applicationMessage()}</Text>
-              </Stack>
+              <Stack justify='space-between' direction='row' spacing='4'>
+                <Stack spacing='0.5' fontSize='sm'>
+                  <Text color='fg.emphasized' fontWeight='medium'>
+                    Application Status
+                  </Text>
+                  <Text color='fg.muted'>{applicationMessage()}</Text>
+                </Stack>
 
-              <Box>{applicationBadge()}</Box>
+                <Box>{applicationBadge()}</Box>
+              </Stack>
+              <Button onClick={() => setShowOnboardingModal(true)}>
+                Fill out application
+              </Button>
             </Stack>
-          </Stack>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+      <OnboardingFormModal
+        isOpen={showOnboardingModal}
+        onClose={() => setShowOnboardingModal(false)}
+      />
+    </>
   );
 };
 

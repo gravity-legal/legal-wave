@@ -6,6 +6,10 @@ const CREATE_FIRM = gql`
   mutation CreateFirm($input: CreateFirmInput!) {
     createFirm(input: $input) {
       apiToken
+      onboardingToken {
+        expiresAt
+        token
+      }
       signUpLink {
         link
         expiresAt
@@ -21,6 +25,10 @@ export interface CreateFirmInput {
 export interface CreateFirmData {
   createFirm: {
     apiToken: string;
+    onboardingToken: {
+      expiresAt: Date;
+      token: string;
+    };
     signUpLink: {
       link: string;
       expiresAt: Date;

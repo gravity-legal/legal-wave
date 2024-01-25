@@ -8,8 +8,20 @@ declare global {
       setActiveForm: (form: FormType) => void;
       submitFields: () => Promise<SubmitFieldsResult>;
     };
+    confidoOnboarding: {
+      refresh: () => void;
+      renderForm: (opts: RenderOptions) => void;
+    };
   }
 }
+
+export type RenderOptions = {
+  containerId: string;
+  onChange?: OnChangeCb;
+  readOnly?: boolean;
+  style?: ConfidoStyleOptions;
+  token: string;
+};
 
 export interface ChangeEvent {
   type: ChangeType;

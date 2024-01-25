@@ -21,7 +21,7 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": "explicit"
     },
     "css.lint.unknownAtRules": "ignore",
     "typescript.tsdk": "./node_modules/typescript/lib"
