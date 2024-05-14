@@ -8,16 +8,18 @@ const OwnerFormPage: NextPage<WithRouterProps> = ({ router }) => {
   const { query } = router;
   const code = query.o_code as string;
 
+  useEffect(() => {
+    if (code) {
+      window.confidoOnboarding.renderOwnerForm({
+        code,
+        containerId: 'confido-owner-form',
+      });
+    }
+  }, [code]);
+
   if (!code) {
     return <div>invalid url</div>;
   }
-
-  useEffect(() => {
-    window.confidoOnboarding.renderOwnerForm({
-      code,
-      containerId: 'confido-owner-form',
-    });
-  }, [code]);
 
   return (
     <Container
