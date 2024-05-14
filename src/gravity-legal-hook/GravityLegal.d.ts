@@ -11,16 +11,26 @@ declare global {
     confidoOnboarding: {
       refresh: () => void;
       renderForm: (opts: RenderOptions) => void;
+      renderOwnerForm: (opts: RenderOwnerOptions) => void;
     };
   }
 }
 
 export type RenderOptions = {
   containerId: string;
+  disableOwnerInvite?: boolean;
   onChange?: OnChangeCb;
   readOnly?: boolean;
+  ownerInviteUrl?: string;
   style?: ConfidoStyleOptions;
   token: string;
+};
+
+export type RenderOwnerOptions = {
+  code: string;
+  containerId: string;
+  onChange?: (e: OnboardingChangeEvent) => void;
+  style?: ConfidoStyleOptions;
 };
 
 export interface ChangeEvent {

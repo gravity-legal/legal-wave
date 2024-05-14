@@ -22,7 +22,7 @@ interface FormData {
   password: string;
 }
 
-export const LoginPage: NextPage = () => {
+const LoginPage: NextPage = () => {
   const { register, handleSubmit } = useForm<FormData>();
 
   const submitHandler = handleSubmit(async (data) => {

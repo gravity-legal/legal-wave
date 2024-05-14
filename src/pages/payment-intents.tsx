@@ -22,7 +22,9 @@ export const getServerSideProps = requireAuth(async ({ session }) => {
   const firmToken = session.user!.firm.glApiToken as string;
 
   // start a payment session
-  const paymentToken = await createPaymentToken({ firmToken });
+  const paymentToken = await createPaymentToken({
+    firmToken,
+  });
 
   return {
     props: {

@@ -17,8 +17,10 @@ export default async function handler(
     amount: parseInt(body.amount),
     payerEmail: body.email,
     paymentMethod: body.paymentMethod,
+    payerName: body.name,
     paymentToken: body.paymentToken,
     savePaymentMethod: body.savePaymentMethod,
+    sendReceipt: body.sendReceipt,
   };
 
   const result = await gravitylegal.runPayment(firmToken, runPaymentInput);

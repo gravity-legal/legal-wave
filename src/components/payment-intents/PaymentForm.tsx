@@ -1,5 +1,5 @@
-import { CreditCardBrandIcon } from '@/components/credit-cards/CreditCardBrandIcon';
 import HostedFieldInput from '@/components/HostedFieldInput';
+import { CreditCardBrandIcon } from '@/components/credit-cards/CreditCardBrandIcon';
 import { useGravityLegal } from '@/gravity-legal-hook/useGravityLegal';
 import {
   Alert,
@@ -12,7 +12,6 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  HStack,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -30,11 +29,14 @@ import currency from 'currency.js';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import ControlledCheckbox from '../ui/ControlledCheckbox';
 
 interface FormData {
   amount: string;
-  email: string;
+  email?: string;
+  name?: string;
   savePaymentMethod: boolean;
+  sendReceipt?: boolean;
 }
 
 interface PaymentResult {
@@ -48,7 +50,11 @@ export interface PaymentFormProps {
 
 export const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<FormData>();
+  const { control, register, handleSubmit, watch } = useForm<FormData>({
+    defaultValues: {
+      sendReceipt: undefined,
+    },
+  });
   const [loading, setLoading] = useState(false);
   const [formType, setFormType] = useState<'card' | 'ach'>('card');
   const [result, setResult] = useState<PaymentResult>();
@@ -88,9 +94,11 @@ export const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
           body: JSON.stringify({
             amount: amountInCents,
             email: data.email,
+            name: data.name,
             paymentToken,
             paymentMethod: hostedFieldsState?.paymentMethod,
             savePaymentMethod: data.savePaymentMethod,
+            sendReceipt: data.sendReceipt,
           }),
         });
 
@@ -112,6 +120,8 @@ export const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
       console.log('invlaid', data);
     }
   );
+
+  const sendReceipt = watch('sendReceipt');
 
   return (
     <Stack spacing={{ base: '8', lg: '6' }} height='full'>
@@ -168,25 +178,6 @@ export const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
                 <FormLabel htmlFor='amount'>Amount</FormLabel>
                 <InputGroup>
                   <InputLeftAddon>USD</InputLeftAddon>
-                  {/* <Input
-                as={MaskedInput}
-                id='amount'
-                mask={createNumberMask({
-                  prefix: '$',
-                  suffix: '',
-                  includeThousandsSeparator: true,
-                  thousandsSeparatorSymbol: ',',
-                  allowDecimal: true,
-                  decimalSymbol: '.',
-                  decimalLimit: 2,
-                  integerLimit: 6,
-                  allowNegative: false,
-                  allowLeadingZeroes: false,
-                })}
-                type='text'
-                placeholder='$10.00'
-                {...register('amount', { required: true })}
-              /> */}
                   <Input
                     id='amount'
                     type='text'
@@ -203,6 +194,11 @@ export const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
               </FormControl>
 
               <Stack spacing='5'>
+                <FormControl>
+                  <FormLabel htmlFor='email'>Name</FormLabel>
+                  <Input id='name' {...register('name')} />
+                </FormControl>
+
                 <FormControl>
                   <FormLabel htmlFor='email'>Email for receipt</FormLabel>
                   <Input id='email' type='email' {...register('email')} />
@@ -273,11 +269,26 @@ export const PaymentForm: FC<PaymentFormProps> = ({ paymentToken }) => {
                 </TabPanels>
               </Tabs>
 
-              <HStack justify='space-between'>
+              <Stack spacing={2}>
                 <Checkbox {...register('savePaymentMethod')}>
                   Store payment method
                 </Checkbox>
-              </HStack>
+                <ControlledCheckbox
+                  control={control}
+                  name='sendReceipt'
+                  checkboxProps={{
+                    isIndeterminate: sendReceipt === undefined,
+                  }}
+                >
+                  Send receipt (
+                  <Code>
+                    {sendReceipt === undefined
+                      ? 'null'
+                      : sendReceipt.toString()}
+                  </Code>
+                  )
+                </ControlledCheckbox>
+              </Stack>
               <Stack spacing='6'>
                 <Button colorScheme='blue' type='submit' variant='solid'>
                   Run payment

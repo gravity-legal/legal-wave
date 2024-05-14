@@ -31,6 +31,7 @@ export interface RunPaymentInput {
   paymentMethod: PaymentMethod;
   paymentToken: string;
   savePaymentMethod?: boolean;
+  sendReceipt?: boolean;
 }
 
 export interface RunPaymentData {

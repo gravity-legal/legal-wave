@@ -64,6 +64,7 @@ const OnboardingFormRenderer: FC<OnboardingFormRendererProps> = ({ token }) => {
       window.confidoOnboarding.renderForm({
         containerId: 'confido-onboarding-form',
         token,
+        disableOwnerInvite: true,
         onChange: (event) => console.log('change', event),
         style: {
           theme: {

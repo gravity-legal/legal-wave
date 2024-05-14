@@ -76,9 +76,11 @@ export const GravityLegalConnectionStatus: FC = (props) => {
 
                 <Box>{applicationBadge()}</Box>
               </Stack>
-              <Button onClick={() => setShowOnboardingModal(true)}>
-                Fill out application
-              </Button>
+              {!glFirm?.isAcceptingPayments && (
+                <Button onClick={() => setShowOnboardingModal(true)}>
+                  Complete application
+                </Button>
+              )}
             </Stack>
           </Box>
         </Box>
